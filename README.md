@@ -7,7 +7,7 @@
 ```
 $ ansible-playbook -i inventory/hosts step.yml
 ```
-执行后后进入交互模式让你填入 Azure 存储账户认证环节，简单进行变量的介绍：
+执行后进入交互模式让你填入 Azure 存储账户认证环节，简单进行变量的介绍：
 ```
 AZURE_STORAGE_BASE 为 Azure 地区地址，默认是中国地区，其他区域看官方介绍，在模板中有 global 地址
 AZURE_STORAGE_ACCOUNT 为 Azure 存储账号名称
