@@ -19,3 +19,4 @@ $ docker volume create -d azurefile --name azurefile -o share=azure-file
 $ docker run -d -v azurefile:/data --name busybox busybox ls /data
 ```
 相关介绍请转至 [Wiki 地址](https://wiki.shileizcc.com/display/DOC/Docker+Volume)。
+此案例需要使用 Systemd 服务，且使用 Ubuntu 系统，如果需要使用 Redhat 系统请修改执行 Ansible Playbook 文件内的 apt 为 yum 即可。
