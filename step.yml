@@ -28,5 +28,5 @@
         with_items:
           - { src: temp/azurefile-dockervolumedriver,dest: azurefile-dockervolumedriver.service }
       - name: Copy the Azurefile configuration template
-        template: src=./azurefile-dockervolumedriver-config, dest: {{ Config_dir }}/azurefile-dockervolumedriver owner=root group=root mode=0644 
+        template: src=./temp/azurefile-dockervolumedriver-config, dest: {{ Config_dir }}/azurefile-dockervolumedriver owner=root group=root mode=0644 
         notify: start azurefile-dockervolumedriver
