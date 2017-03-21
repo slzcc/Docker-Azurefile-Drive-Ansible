@@ -26,7 +26,8 @@
       - name: Copy the System configuration template
         copy: src={{ item.src }} dest={{ System_dir }}/{{ item.dest }} backup=yes owner=root group=root mode=0644
         with_items:
-          - { src: temp/azurefile-dockervolumedriver,dest: azurefile-dockervolumedriver.service }
+          - { src: temp/azurefile-dockervolumedriver, dest: azurefile-dockervolumedriver.service }
       - name: Copy the Azurefile configuration template
         template: src=temp/azurefile-dockervolumedriver-config dest={{ Config_dir }}/azurefile-dockervolumedriver owner=root group=root mode=0644 
+      - name: Start Service
         service: name=azurefile-dockervolumedriver state=started
