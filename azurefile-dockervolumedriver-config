@@ -1,0 +1,9 @@
+# Environment file for azurefile-dockervolumedriver.service
+#
+# AF_OPTS=--debug
+# AZURE_STORAGE_BASE=core.windows.net
+# China regional is ~
+AZURE_STORAGE_BASE=core.chinacloudapi.cn
+  
+AZURE_STORAGE_ACCOUNT=youraccount
+AZURE_STORAGE_ACCOUNT_KEY=yourkeypei
