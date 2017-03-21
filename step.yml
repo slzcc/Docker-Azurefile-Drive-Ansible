@@ -2,26 +2,23 @@
 - hosts: all
   gather_facts: False
   vars:
-      Azure_Package_version="v0.5.1"
-      System_dir="/etc/systemd/system"
-      Config_dir="/etc/default"
-  tasts:
+      Azure_Package_version: v0.5.1
+      System_dir: /etc/systemd/system
+      Config_dir: /etc/default
+  tasks:
       - name: Install Azure SMB
         apt: name=cifs-utils
       - name: Install Azure Binary package
         sudo: true
         shell: wget -qO /usr/bin/azurefile-dockervolumedriver https://github.com/Azure/azurefile-dockervolumedriver/releases/download/{{ Azure_Package_version }}/azurefile-dockervolumedriver
       - name: Grant permissions
-        with_fileglob:
-            - /usr/bin/*
         shell: chmod +x /usr/bin/azurefile-dockervolumedriver
-        when: "{{ item }}" == "/usr/bin/azurefile-dockervolumedriver"
       - name: Copy the System configuration template
         copy: src={{ item.src }} dest={{ System_dir }}/{{ item.dest }} backup=yes owner=root group=root mode=0644
         with_items:
-          - { src: temp/azurefile-dockervolumedriver,dest:azurefile-dockervolumedriver.service }
+          - { src: temp/azurefile-dockervolumedriver,dest: azurefile-dockervolumedriver.service }
       - name: Copy the Azurefile configuration template
         copy: src={{ item.src }} dest={{ Config_dir }}/{{ item.dest }} backup=yes owner=root group=root mode=0644
         with_items:
-          - { src: temp/azurefile-dockervolumedriver-config, dest:azurefile-dockervolumedriver}
+          - { src: temp/azurefile-dockervolumedriver-config, dest: azurefile-dockervolumedriver}
         notify: restart azurefile-dockervolumedriver
