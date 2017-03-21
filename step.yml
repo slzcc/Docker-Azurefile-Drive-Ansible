@@ -5,11 +5,21 @@
       Azure_Package_version: v0.5.1
       System_dir: /etc/systemd/system
       Config_dir: /etc/default
+  vars_prompt:
+      - name: "AZURE_STORAGE_ACCOUNT"
+        prompt: "Please input one value"
+        private: no
+      - name: "AZURE_STORAGE_ACCOUNT_KEY"
+        prompt: "Please input one value"
+        private: no
+      - name: "AZURE_STORAGE_BASE"
+        prompt: "Pleass input two value"
+        default: 'core.chinacloudapi.cn'
+        private: no
   tasks:
       - name: Install Azure SMB
         apt: name=cifs-utils
       - name: Install Azure Binary package
-        sudo: true
         shell: wget -qO /usr/bin/azurefile-dockervolumedriver https://github.com/Azure/azurefile-dockervolumedriver/releases/download/{{ Azure_Package_version }}/azurefile-dockervolumedriver
       - name: Grant permissions
         shell: chmod +x /usr/bin/azurefile-dockervolumedriver
@@ -18,7 +28,5 @@
         with_items:
           - { src: temp/azurefile-dockervolumedriver,dest: azurefile-dockervolumedriver.service }
       - name: Copy the Azurefile configuration template
-        copy: src={{ item.src }} dest={{ Config_dir }}/{{ item.dest }} backup=yes owner=root group=root mode=0644
-        with_items:
-          - { src: temp/azurefile-dockervolumedriver-config, dest: azurefile-dockervolumedriver}
-        notify: restart azurefile-dockervolumedriver
+        template: src=./azurefile-dockervolumedriver-config, dest: {{ Config_dir }}/azurefile-dockervolumedriver owner=root group=root mode=0644 
+        notify: start azurefile-dockervolumedriver
