@@ -7,13 +7,13 @@
       Config_dir: /etc/default
   vars_prompt:
       - name: "AZURE_STORAGE_ACCOUNT"
-        prompt: "Please input one value"
+        prompt: "Please input AZURE_STORAGE_ACCOUNT Value"
         private: no
       - name: "AZURE_STORAGE_ACCOUNT_KEY"
-        prompt: "Please input one value"
+        prompt: "Please input AZURE_STORAGE_ACCOUNT_KEY Value"
         private: no
       - name: "AZURE_STORAGE_BASE"
-        prompt: "Pleass input two value"
+        prompt: "Pleass input AZURE_STORAGE_BASE Value"
         default: 'core.chinacloudapi.cn'
         private: no
   tasks:
@@ -28,5 +28,5 @@
         with_items:
           - { src: temp/azurefile-dockervolumedriver,dest: azurefile-dockervolumedriver.service }
       - name: Copy the Azurefile configuration template
-        template: src=./temp/azurefile-dockervolumedriver-config, dest: {{ Config_dir }}/azurefile-dockervolumedriver owner=root group=root mode=0644 
+        template: src=temp/azurefile-dockervolumedriver-config dest={{ Config_dir }}/azurefile-dockervolumedriver owner=root group=root mode=0644 
         notify: start azurefile-dockervolumedriver
